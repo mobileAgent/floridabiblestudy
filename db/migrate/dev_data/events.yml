@@ -1,0 +1,8 @@
+e1:
+        year: 2010
+        location: Leesburg, Florida
+        registration_cost: 100
+        registration_count: 0
+        max_seats: 65
+        start_date: 2010-01-11
+        end_date: 2010-01-15

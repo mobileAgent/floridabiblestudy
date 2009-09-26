@@ -1,0 +1,16 @@
+<tr class='<%=cycle("odd","even")%>'>
+     <td><%= link_to "#{reg.last_name}, #{reg.first_name}", :action => 'edit_registration', :id => reg %></td>
+     <td><%=h reg.user.email %></td>
+     <td><%=h reg.phone %></td>
+     <td><%=h reg.mobile %></td>
+     <td><%=h reg.city %></td>
+     <td><%=h reg.state %></td>
+     <td><%= number_to_currency(reg.amount_owed, :precision => 2) %></td>
+     <td sortby='<%=reg.created_at.iso8601 %>'><%= short_date reg.created_at %></td>
+     <td>
+         
+        <%= link_to image_tag('delete.gif', :alt => 'Delete', :size => '16x16', :title => 'Delete'), { :action => 'destroy_registration',
+                                 :id => reg },
+              :confirm => 'Are you sure?', :post => true %>
+     </td>
+</tr>

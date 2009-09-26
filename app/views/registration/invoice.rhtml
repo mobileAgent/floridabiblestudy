@@ -1,0 +1,33 @@
+<div class="centered">
+<h1><span class="primcolor">Florida Mens</span> <span class="altcolor">Bible</span> <span class="primcolor">Study 2010</span> Invoice for <%=h "#{@registration.first_name} #{@registration.last_name}"%></h1>
+</div>
+
+<h2>Address</h2>
+<p>
+<%=h "#{@registration.first_name} #{@registration.middle_name} #{@registration.last_name}"%><br />
+<%=h "#{@registration.address1}"%><br />
+<% if ! @registration.address2.nil? && @registration.address2.length > 0 %>
+<%=h "#{@registration.address2}"%><br />
+<% end %>
+<%=h "#{@registration.city} #{@registration.state} #{@registration.zip_code}" %>
+</p>
+
+<h2>Contact Info</h2>
+<p>
+Email: <%=h "#{@user.email}"%><br />
+Phone: <%=h "#{@registration.phone}"%><br />
+Travel Phone: <%=h "#{@registration.mobile}"%><br />
+</p>
+
+<h2>Payment Due</h2>
+<p>
+Amount due: <%=h number_to_currency(@registration.amount_owed, :precision => 2)%>
+<br />
+You can make your check out to <strong>Mike Flester</strong>
+and mail it to
+      <blockquote>
+      Florida Mens Bible Study c/o Mike Flester<br />
+      7113 Deer Valley Road<br />
+      Highland MD 20777 USA
+      </blockquote>
+</p>

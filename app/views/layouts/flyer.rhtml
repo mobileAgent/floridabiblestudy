@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+  <head>
+    <title>Florida Mens Bible Study<%= " - #{@title}" if @title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%= stylesheet_link_tag 'buckit', :media => 'all' %>
+    <style>
+       div.centered div.scripturebox {
+          width: 70%;
+          margin-left: 15%;
+        }
+    </style>
+  </head>
+  <body>
+
+   <div id="header">
+      <span class="logotxt altcolor">Florida Mens <span class="primcolor">Bible</span> Study</span>
+  </div>
+
+    <br />
+    <div class="centered" style="color: black; font-size: +2em;">Questions? Email info@floridabiblestudy.org</div>
+
+   <div id="content">
+     <%= yield %>
+   </div>
+
+   <div id="footer">
+      http://www.<span class="primcolor">florida</span><span class="altcolor">bible</span><span class="primcolor">study</span>.org/
+   </div>
+ </body>
+</html>

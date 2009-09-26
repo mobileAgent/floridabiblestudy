@@ -1,0 +1,4 @@
+h1. Florida Mens Bible Study
+
+Very simple rails app to provide an online registration system and
+website for the Florida Mens Bible Study.
