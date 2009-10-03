@@ -13,7 +13,7 @@ class Event < ActiveRecord::Base
 
   # format for home page month, day
   def start_text
-    start_date.strftime("%B %d")
+    start_date.strftime("%B %e")
   end
   
   # format for home page month, day
