@@ -2,7 +2,8 @@ class WaitlistNotification < ActionMailer::Base
 
   def invoice(user,registration,main_event)
      @recipients = user.email
-     @from = '"Florida Bible Study" <info@floridabiblestudy.org>'
+     # @from = '"Florida Bible Study" <info@floridabiblestudy.org>'
+     @from = 'info@floridabiblestudy.org'
      @bcc = 'info@floridabiblestudy.org'
      @sent_on = Time.now
      @subject = "Florida Mens Bible Study #{main_event.year} Waiting List"
