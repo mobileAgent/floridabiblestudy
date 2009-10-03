@@ -217,7 +217,7 @@ div.main {
 .sm {
   font-size: 0.7em;
 }
-input[type='text'], input[type='password'], select, input[type='radio'] {
+input[type='text'], input[type='password'], select, input[type='radio'], textarea {
   background-color: #feb;
   border: 1px solid #26a;
   margin-bottom: 0;
@@ -231,7 +231,7 @@ div.fieldWithErrors input, div.fieldWithErrors select {
   border: 1px solid red;
 }
 
-input[type='text']:focus, input[type='password']:focus { 
+input[type='text']:focus, input[type='password']:focus, textarea:focus { 
   border: 2px solid darkblue;
 }
 .invisifield { 

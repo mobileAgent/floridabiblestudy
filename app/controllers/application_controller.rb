@@ -6,6 +6,15 @@ class ApplicationController < ActionController::Base
   # Email exceptions in production environment
   include ExceptionNotifiable
 
+  # Get the event we are working on
+  before_filter :get_event
+
+  protected
+
+  def get_event
+     @main_event = Event.all(:order => 'start_date').last
+  end
+
   def authorize
      if !session[:user_id] || !User.find_by_id(session[:user_id])
        session[:original_uri] = request.request_uri

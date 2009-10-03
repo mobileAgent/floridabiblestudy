@@ -44,8 +44,16 @@
           <%= text_field 'registration', 'state', {:size => 2, :maxlength => 2} %> 
         </p>
         <p>
+          <label for="registration_country" class="col1">Country</label>
+          <%= text_field 'registration', 'country', {:size => 15, :maxlength => 15} %> 
+        </p>
+        <p>
           <label for="registration_zip_code" class="col1">Zip<span class="req">*</span></label>
           <%= text_field 'registration', 'zip_code', { :size => 10, :maxlength => 10}%>
+        </p>
+        <p>
+          <label for="registration_comments" class="col1">Comments/Travel Info</label>
+          <%= text_area 'registration','comments', {:rows => 5, :columns => 60}%>
         </p>
      </fieldset>
      <input type=hidden name="wait_list" value="<%=@wait_list%>"/>

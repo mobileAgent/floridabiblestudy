@@ -1,18 +1,18 @@
 class WaitlistNotification < ActionMailer::Base
 
-  def invoice(user,registration)
+  def invoice(user,registration,main_event)
      @recipients = user.email
-     @from = 'info@floridabiblestudy.org'
+     @from = '<Florida Bible Study> info@floridabiblestudy.org'
      @bcc = 'info@floridabiblestudy.org'
      @sent_on = Time.now
-     @subject = 'Florida Mens Bible Study 2010 Waiting List'
+     @subject = "Florida Mens Bible Study #{main_event.year} Waiting List"
      @headers = {}
-     @body = make_invoice_text(user,registration)
+     @body = make_invoice_text(user,registration,main_event)
   end
 
   private
 
-  def make_invoice_text (user,registration)
+  def make_invoice_text (user,registration,main_event)
 
      p1 = "#{registration.first_name} #{registration.middle_name} #{registration.last_name}\n"
      p1 += "#{registration.address1}\n"
@@ -24,7 +24,7 @@ class WaitlistNotification < ActionMailer::Base
      p2 =  "Phone:  #{registration.phone}\n"
      p2 += "Travel Phone: #{registration.mobile}\n"
 
-     p3 = "Thank you for your interest in the 2010 Florida Mens Bible Study,\n"
+    p3 = "Thank you for your interest in the #{main_event.year} Florida Mens Bible Study,\n"
      p3 += "You have been added to the waiting list and we will contact you\n"
      p3 += "if more slots become available.\n"
      p3 += "Please contact info@floridabiblestudy.org if you have any questions!\n"
