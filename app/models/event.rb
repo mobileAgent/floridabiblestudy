@@ -19,9 +19,9 @@ class Event < ActiveRecord::Base
   # format for home page month, day
   def end_text
     if (end_date.mon == start_date.mon)
-      end_date.strftime("%d")
+      end_date.strftime("%e")
     else
-      end_date.strftime("%B %d")
+      end_date.strftime("%B %e")
     end
   end
   
