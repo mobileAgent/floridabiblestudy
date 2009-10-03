@@ -1,7 +1,7 @@
 class PasswordNotification < ActionMailer::Base
 
   def password(user,password)
-     @recipients = "\"#{user.first_name} #{user.last_name}\" <#{user.email}>"
+     @recipients = user.email
      @from = '"Florida Bible Study" <info@floridabiblestudy.org>'
      #@bcc = 'info@floridabiblestudy.org'
      @sent_on = Time.now
