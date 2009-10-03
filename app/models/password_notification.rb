@@ -1,8 +1,8 @@
 class PasswordNotification < ActionMailer::Base
 
   def password(user,password)
-     @recipients = user.email
-     @from = 'Florida Bible Study <info@floridabiblestudy.org>'
+     @recipients = "\"#{user.first_name} #{user.last_name}\" <#{user.email}>"
+     @from = '"Florida Bible Study" <info@floridabiblestudy.org>'
      #@bcc = 'info@floridabiblestudy.org'
      @sent_on = Time.now
      @subject = 'Your floridabiblestudy.org password has been reset'

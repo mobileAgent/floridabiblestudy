@@ -1,8 +1,8 @@
 class InvoiceNotification < ActionMailer::Base
 
   def invoice(user,registration,main_event)
-     @recipients = user.email
-     @from = 'Florida Bible Study <info@floridabiblestudy.org>'
+     @recipients = "\"#{user.first_name} #{user.last_name}\" <#{user.email}>"
+     @from = '"Florida Bible Study" <info@floridabiblestudy.org>'
      @bcc = 'info@floridabiblestudy.org'
      @sent_on = Time.now
      @subject = "Your invoice for Florida Mens Bible Study #{main_event.year}"
