@@ -72,9 +72,11 @@ set :user_http_conf, "#{path_to_web_server}/conf/rails"
 # must match the options given for the servers to select (like :primary => true)
 
 
-desc "Restarting mod_rails with restart.txt"
-task :restart, :roles => :app, :except => { :no_release => true } do
-  run "touch #{current_path}/tmp/restart.txt"
+namespace :deploy do
+  desc "Restarting mod_rails with restart.txt"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
 end
 
 desc "Tasks before initial setup"
