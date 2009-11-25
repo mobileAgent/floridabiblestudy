@@ -69,4 +69,5 @@ end
 
 require 'will_paginate'
 
-ExceptionNotifier.exception_recipients = %w(flester+fmbs@gmail.com)
+ExceptionNotifier.exception_recipients = %w(flester@gmail.com)
+ExceptionNotifier.email_prefix = '[FMBS] '
