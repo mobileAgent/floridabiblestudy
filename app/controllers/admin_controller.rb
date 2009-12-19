@@ -14,10 +14,10 @@ class AdminController < ApplicationController
 #         paginate :registrations, :per_page => 25
       @registrations = Registration.find(:all, :conditions => ["event_id = ?",@main_event.id], :order => "last_name")
     respond_to do |format|
-      format.html # list_registration.html.erb
-      format.xml  { render :xml => @registrations }
-      format.csv  # list_registration.csv.erb
-    end
+       format.html # list_registration.html.erb
+       format.xml  { render :xml => @registrations, :layout => false }
+       format.csv  { render :csv => @registrations, :layout => false}
+     end
    end
 
 

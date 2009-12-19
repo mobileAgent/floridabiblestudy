@@ -1,2 +1,2 @@
-"last name","first name","email","phone","mobile","addr","city","state","zip","balance","regdate"
-<%@registrations.each do |reg| %><%="\"#{reg.last_name}\",\"#{reg.first_name}\",\"#{reg.user.email}\",\"#{reg.phone}\",\"#{reg.mobile}\",\"#{reg.address1} #{reg.address2}\",\"#{reg.city}\",\"#{reg.state}\",\"#{reg.zip_code}\",\"#{number_to_currency(reg.amount_owed, :precision => 2)}\",\"#{reg.created_at.iso8601}\"\r\n"%><%  end %>
+"last name","first name","email","phone","mobile","addr","city","state","zip","country","balance","regdate","comments"
+<%@registrations.each do |reg| %><%="\"#{reg.last_name}\",\"#{reg.first_name}\",\"#{reg.user.email}\",\"#{reg.phone}\",\"#{reg.mobile}\",\"#{reg.address1} #{reg.address2}\",\"#{reg.city}\",\"#{reg.state}\",\"#{reg.zip_code}\",\"#{reg.country}\",\"#{number_to_currency(reg.amount_owed, :precision => 2)}\",\"#{reg.created_at.iso8601}\",\"#{(reg.comments||"").gsub(/[,\"\r\n]/,' ')}\"\r\n"%><%  end %>
