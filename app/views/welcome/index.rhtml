@@ -1,8 +1,8 @@
 <div class="centered">
 <h1 class="altcolor">An Intensive 4 Day Bible Study</h1>
 
-<div class="scripturebox vevent" title="Florida Mens Bible Study <%= @main_event.year %>">
-  <span class="summary">Mens<span class="altcolor">Bible</span>Study<span class="altcolor"><%= @main_event.year %></span>
+<div class="scripturebox vevent" title="Florida Mens Bible Study <%= @event_year %>">
+  <span class="summary">Mens<span class="altcolor">Bible</span>Study<span class="altcolor"><%= @event_year %></span>
 <ul>
   <li> Teachers:
     <ul>
@@ -11,12 +11,17 @@
       <li>Larry Price</li>
       <li>Henry Sardiña</li>
     </ul>
-  <li class="location">Where: <%= @main_event.location %></li>
-  <li> Registration Cost: $<%= @main_event.registration_cost %></li>
-  <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text%></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @main_event.year %></li>
-  <li>Topic: The Book of Hebrews</li>
-  <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
+  <% if @main_event %>
+    <li class="location">Where: <%= @main_event.location %></li>
+    <li> Registration Cost: $<%= @main_event.registration_cost %></li>
+    <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text%></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @main_event.year %></li>
+    <li>Topic: The Book of Zechariah</li>
+    <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
+  <% else %>
+    <li>Details are still being worked out! Check back soon.</li>
+  <% end %>
 </ul>
+  
 </div>
 </div>
 
