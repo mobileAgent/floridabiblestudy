@@ -97,7 +97,7 @@ task :after_update_code, :roles => :app do
   put YAML::dump(buffer),"#{release_path}/config/database.yml",:mode=>0644
 
   # Clean up tmp and relink to shared for session and cache data
-  sudo "rm -rf #{release_path}/tmp" # because it should not be in svn
+  run "rm -rf #{release_path}/tmp" # because it should not be in svn
   run "ln -nfs #{deploy_to}/shared/tmp #{release_path}/tmp"
   run "ln -nfs #{deploy_to}/shared/audio #{current_release}/public/audio"
 end
