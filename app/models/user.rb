@@ -55,4 +55,10 @@ class User < ActiveRecord::Base
     self.salt = self.object_id.to_s + rand.to_s
   end
 
+  def self.generate_password(length = 8)
+    
+     chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - ['o', 'O', 'i', 'I']
+     Array.new(length) { chars[rand(chars.size)] }.join
+  end
+
 end

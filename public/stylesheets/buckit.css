@@ -364,9 +364,14 @@ th>a.sortheader:hover {
    display: none;
 }
 
+img {
+  border: none 
+}
+
 
 /* This is not valid CSS */
 fieldset, div.scripturebox {
   -moz-border-radius: .5em;
 }
 /* End Invalid CSS Section */
+

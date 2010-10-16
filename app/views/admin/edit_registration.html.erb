@@ -1,14 +1,25 @@
 <div class="err">
-  <%= error_messages_for 'registration' %>
+  <%= error_messages_for :registration %>
+  <%= error_messages_for :user %>
 </div>
 
-<% form_tag :action => 'update_registration' do %>
+<% @create = @registration.new_record? %>
+
+<% form_tag :action => (@create ? :create_registration : :update_registration) do %>
 
   <fieldset>
 
     <legend>Admin Info</legend>
 
      <input type="hidden" id="id" name="id" value="<%= @registration.id %>"/>
+     <input type="hidden" id="user_id" name="user_id" value="<%= @user.id %>"/>
+
+     <% if @user.new_record? %>
+     <p>
+          <label for="user_email" class="col1">Email Address<span class="req">*</span></label>
+          <%= text_field 'user', 'email', :size => 50 %>
+     </p>
+     <% end %>
   
      <p>
         <label for="registration_amount_paid" class="col1">Amount Paid</label>
@@ -21,9 +32,10 @@
      </p>
   </fieldset>
 
+
   <%= render :partial => 'registration/form' %>
 
-  <%= submit_tag "Update Registration", :class => "Submit" %>
+  <%= submit_tag((@create ? "Create Registration" : "Update Registration"), :class => "Submit") %>
 
 <% end %>
 

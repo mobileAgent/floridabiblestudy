@@ -44,7 +44,7 @@ class LoginController < ApplicationController
      if request.post?
         user = User.find_by_email(params[:email])
         if user
-           new_password = generate_password()
+           new_password = User.generate_password()
            user.password=new_password
            user.save
            PasswordNotification.deliver_password(user, new_password)
@@ -54,13 +54,6 @@ class LoginController < ApplicationController
         end
      end
      redirect_to :controller => 'login', :action => 'login' and return
-  end
-
-  private
-
-  def generate_password(length = 8)
-     chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - ['o', 'O', 'i', 'I']
-     Array.new(length) { chars[rand(chars.size)] }.join
   end
 
 end

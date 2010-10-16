@@ -14,6 +14,11 @@
      <% end %>
      </td>
      <td>
+        <% if reg.amount_owed > 0 %>
+          <%= link_to image_tag('dollar.jpeg', :alt => 'Mark Paid', :size => '16x16', :title => 'Mark Paid'), { :action => 'mark_paid', :id => reg}, :post => true %>
+        <% else %>
+          <img src='/pixel.gif' height='16' width='16' border='0'/>
+        <% end %>
          
         <%= link_to image_tag('delete.gif', :alt => 'Delete', :size => '16x16', :title => 'Delete'), { :action => 'destroy_registration',
                                  :id => reg },

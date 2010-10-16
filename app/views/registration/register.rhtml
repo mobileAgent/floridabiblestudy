@@ -3,8 +3,8 @@
      <h2><%= @wait_list ? 'Florida Mens Bible Study <span class="altcolor">WaitingList</span>' : 'Register For Florida Mens Bible Study' %></h2>
 
      <div class="err">
-     <%= error_messages_for 'user' %>
-     <%= error_messages_for 'registration' %>
+     <%= error_messages_for :user %>
+     <%= error_messages_for :registration %>
      </div>
 
      <% if @user && ! @user.new_record? %>

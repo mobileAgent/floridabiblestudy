@@ -1,0 +1,9 @@
+<ul>
+  <% @users.each do |user| %>
+  <li>
+    <%= link_to user.email, :action => :new_registration, :user_email => user.email %>
+  </li>
+  <% end %>
+  <li><%= link_to 'New User', :action => :new_registration %></li>
+</ul>
+

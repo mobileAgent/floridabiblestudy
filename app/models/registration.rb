@@ -15,7 +15,23 @@ class Registration < ActiveRecord::Base
   validates_format_of :zip_code, :with => /\A[0-9]{5}-?[0-9]*\Z/, :message => 'Bad zip code'
   validates_format_of :phone, :with => /\A[-0-9+., eExXtT()]{10,}\Z/, :message => 'That does not look like a phone number to me'
   validates_format_of :mobile, :with => /\A[-0-9+., eExXtT()]{10,}\Z/, :message => 'That does not look like a phone number to me'
-
+  
+  def self.setup_new_registration(user,event,attributes=nil)
+     registration = 
+         (user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  user.id, event.id ])) ||
+      Registration.new(attributes)
+     if user && registration.new_record? && (registration.last_name.nil? || registration.last_name == '')
+        last_years_reg = Registration.find_by_user_id(user.id, :order => 'updated_at desc')
+         if last_years_reg
+           registration = last_years_reg.clone
+           registration.event_id = event.id
+           registration.amount_owed = event.registration_cost
+           registration.amount_paid = 0
+         end
+     end
+    registration
+  end
+  
    private
 
    def normalize

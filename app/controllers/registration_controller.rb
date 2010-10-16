@@ -100,16 +100,9 @@ class RegistrationController < ApplicationController
 
    def setup
      @user = User.find_by_id(session[:user_id])
-     @registration = @registration ||
-         (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @main_event.id ])) ||
-         Registration.new(params[:registration])
-     if @user && @registration.new_record? && (@registration.last_name.nil? || @registration.last_name == '')
-        last_years_reg = Registration.find_by_user_id(@user.id, :order => 'updated_at desc')
-         if last_years_reg
-           @registration = last_years_reg.clone
-           @registration.event_id = @main_event.id
-         end
-     end
+     @registration ||=
+       Registration.setup_new_registration(@user,@main_event,
+                                           params[:registration])
    end
 
 end
