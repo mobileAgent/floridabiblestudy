@@ -3,6 +3,7 @@
 # (among other things) the deployment of your application.
 
 require 'yaml'
+require 'bundler/capistrano'
 
 # =============================================================================
 # REQUIRED VARIABLES
@@ -48,16 +49,6 @@ set :db_username, "fmbs"
 # How much to keep on a cleanup task
 set :keep_releases, 3
 
-# Web server
-set :web_server, "apache2"
-set :path_to_web_server, "/etc/httpd"
-set :web_server_port, 80
-
-# The Plesk friendly way...
-#set :user_http_conf, "/home/httpd/vhosts/#{server_name}/conf"
-set :user_http_conf, "#{path_to_web_server}/conf/rails"
-
-
 # SSH OPTIONS
 # =============================================================================
 # ssh_options[:keys] = %w(/path/to/my/key /path/to/another/key)
@@ -83,7 +74,6 @@ desc "Tasks before initial setup"
 task :before_setup do
   sudo "mkdir -p /var/apps/#{application}"
   sudo "chown -R #{user}:#{group} /var/apps/#{application}"
-  sudo "mkdir -p #{path_to_web_server}/conf/rails"
   sudo "mkdir -p /var/log/#{application}"
 end
 
