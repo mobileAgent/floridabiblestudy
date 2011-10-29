@@ -1,10 +1,11 @@
 class AudioController < ApplicationController
 
-  caches_page :index
+  # caches_page :index
 
   def index
-    @files = Dir.glob("#{RAILS_ROOT}/public/audio/*.mp3")
-    @files.sort!
+    puts "Trying to glob #{Rails.public_path}/audio/*.mp3"
+    @files = Dir.glob("#{Rails.public_path}/audio/*.mp3")
+    @files.sort! if @files
   end
   
 end

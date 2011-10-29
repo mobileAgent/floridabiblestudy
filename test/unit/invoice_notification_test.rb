@@ -4,7 +4,7 @@ class InvoiceNotificationTest < Test::Unit::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 
-  include ActionMailer::Quoting
+  # include ActionMailer::Quoting
 
   def setup
     ActionMailer::Base.delivery_method = :test

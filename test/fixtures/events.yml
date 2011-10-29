@@ -4,12 +4,10 @@ one:
   year: "#{Time.now.year}"
   location: MyString
   registration_cost: 1
-  seats_available: 1
   max_seats: 1
 two:
   id: 2
   year: "#{Time.now.year+1}"
   location: MyString
   registration_cost: 1
-  seats_available: 1
   max_seats: 1

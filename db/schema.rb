@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091003152326) do
+ActiveRecord::Schema.define(:version => 20110723215942) do
 
   create_table "age_ranges", :force => true do |t|
     t.integer "low",  :null => false
@@ -17,16 +17,21 @@ ActiveRecord::Schema.define(:version => 20091003152326) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "year",                              :null => false
-    t.string   "location",                          :null => false
-    t.integer  "registration_cost",  :default => 0, :null => false
-    t.integer  "registration_count", :default => 0, :null => false
-    t.integer  "max_seats",          :default => 0, :null => false
-    t.integer  "lock_version",       :default => 0, :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "year",                                              :null => false
+    t.string   "location",                                          :null => false
+    t.integer  "registration_cost",                  :default => 0, :null => false
+    t.integer  "registration_count",                 :default => 0, :null => false
+    t.integer  "max_seats",                          :default => 0, :null => false
+    t.integer  "lock_version",                       :default => 0, :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.string   "hotel"
+    t.string   "speaker_one"
+    t.string   "speaker_two"
+    t.string   "topics",             :limit => 1024
+    t.string   "speaker_three"
   end
 
   create_table "faqs", :force => true do |t|

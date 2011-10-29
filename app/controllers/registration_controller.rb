@@ -3,9 +3,6 @@ class RegistrationController < ApplicationController
   before_filter :authorize, :except => [:register, :index, :create, :noregister, :register_wait_list, :registration_full]
   before_filter :setup, :only => [:index, :register, :invoice, :create, :delete, :register_wait_list ]
 
-  verify :method => :post, :only => [ :delete, :destroy, :create, :update ],
-         :redirect_to => { :action => :register }
-
    def index
       @title = 'Registration'
       render :action => 'register'
@@ -60,11 +57,11 @@ class RegistrationController < ApplicationController
        if @registration.save
           if @wait_list
              flash[:notice] = 'You are on the waiting list!'
-             WaitlistNotification.deliver_invoice(@user, @registration, @main_event)
+             WaitlistNotification.invoice(@user, @registration, @main_event).deliver
              redirect_to :action => 'waiting_list_thanks'
           else
              flash[:notice] = 'Registration created'
-             InvoiceNotification.deliver_invoice(@user, @registration, @main_event)
+             InvoiceNotification.invoice(@user, @registration, @main_event).deliver
              redirect_to :action => 'invoice'
           end
        else

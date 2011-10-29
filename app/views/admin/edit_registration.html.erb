@@ -5,7 +5,7 @@
 
 <% @create = @registration.new_record? %>
 
-<% form_tag :action => (@create ? :create_registration : :update_registration) do %>
+<%= form_tag :action => (@create ? :create_registration : :update_registration) do %>
 
   <fieldset>
 

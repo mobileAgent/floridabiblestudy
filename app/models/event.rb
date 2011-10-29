@@ -3,12 +3,12 @@ class Event < ActiveRecord::Base
   
   # microformat support
   def start_cal
-    start_date.to_s(:dcal)
+    start_date.strftime("%Y-%m-%d")
   end
 
   # microformat support (needs +1 day)
   def end_cal
-    end_date.tomorrow.to_s(:dcal)
+    end_date.tomorrow.strftime("%Y-%m-%d")
   end
 
   # format for home page month, day

@@ -2,8 +2,7 @@
 one:
   id: 1
   email: MyString
-  password: MyString
-  create_at: 2007-04-15 17:16:03
+  created_at: 2007-04-15 17:16:03
   last_visit: 2007-04-15 17:16:03
   admin: false
   lock_version: 1
@@ -11,8 +10,7 @@ one:
 two:
   id: 2
   email: MyString
-  password: MyString
-  create_at: 2007-04-15 17:16:03
+  created_at: 2007-04-15 17:16:03
   last_visit: 2007-04-15 17:16:03
   admin: false
   lock_version: 1
