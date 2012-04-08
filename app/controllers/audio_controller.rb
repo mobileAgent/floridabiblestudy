@@ -4,7 +4,7 @@ class AudioController < ApplicationController
 
   def index
     puts "Trying to glob #{Rails.public_path}/audio/*.mp3"
-    @files = Dir.glob("#{Rails.public_path}/audio/*.mp3")
+    @files = Dir.glob("#{Rails.public_path}/audio/*.{mp3,pdf,jpg}")
     @files.sort! if @files
   end
   
