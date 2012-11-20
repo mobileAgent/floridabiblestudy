@@ -76,7 +76,7 @@ class RegistrationController < ApplicationController
 
    def update
      @user = User.find_by_id(session[:user_id])
-     @registration = Registration.find(:first, :conditions => ["user_id = ?", @user.id])
+     @registration = Registration.find(:first, :conditions => ["user_id = ? and event_id = ?", @user.id, @main_event.id])
      if @registration.update_attributes(params[:registration])
         flash[:notice] = 'Registration Updated'
      else
