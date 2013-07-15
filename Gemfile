@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -21,7 +21,7 @@ gem 'jquery-rails'
 gem 'exception_notification_rails3', :require => 'exception_notifier'
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -37,6 +37,7 @@ group :development, :test do
   #gem 'turn', :require => false
   #gem 'webrat'
   #gem 'autotest'
+  gem 'thin'
   gem 'simplecov', :require => false
 end
 
