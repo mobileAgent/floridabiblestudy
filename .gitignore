@@ -3,3 +3,4 @@ backups
 log
 tmp/cached
 *.pid
+coverage

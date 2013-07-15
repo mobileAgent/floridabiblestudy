@@ -25,13 +25,21 @@ class InvoiceNotification < ActionMailer::Base
      p2 =  "Phone:  #{registration.phone}\n"
      p2 += "Travel Phone: #{registration.mobile}\n"
      p2 += "Registration Time: #{registration.created_at}\n"
-     p2 += "Amount due: $#{registration.amount_owed}.00\n"
-     p2 += "You can make your check payable to Mike Flester\n"
-     p2 += "And mail it to \n\n"
-     p2 += "                 Florida Mens Bible Study c/o Mike Flester\n"
-     p2 += "                 7113 Deer Valley Road\n"
-     p2 += "                 Highland, MD 20777 USA\n"
 
+    p2 += "Amount due: $#{registration.amount_owed}.00\n"
+    
+    if DateTime.now > (main_event.start_date - 30)
+      p2 += "The event is too close to pay by check.\n"
+      p2 += "Please pay the full amount in cash on the first\n"
+      p2 += "day of the study.\n"
+     else
+       p2 += "You can make your check payable to Mike Flester\n"
+       p2 += "And mail it to \n\n"
+       p2 += "                 Florida Mens Bible Study c/o Mike Flester\n"
+       p2 += "                 7113 Deer Valley Road\n"
+       p2 += "                 Highland, MD 20777 USA\n"
+     end
+       
      p3 = "Thank you for registering for the #{main_event.year} Study,\n"
      p3 += "we are looking forward to seeing you there.!\n"
      p3 += "Please contact info@floridabiblestudy.org if you have any questions!\n"

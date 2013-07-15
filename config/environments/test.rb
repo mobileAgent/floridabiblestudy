@@ -11,6 +11,10 @@ Floridabiblestudy::Application.configure do
   config.whiny_nils = true
   # config.logger = Logger.new(config.log_path, 2, 20.megabytes)
 
+  # Don't share cache location with development environment
+  config.cache_store = :file_store, "#{Rails.root}/tmp/cache-test"
+  
+
   # Show full error reports and disable caching
   # config.action_controller.consider_all_requests_local = true
   config.action_controller.perform_caching             = false
