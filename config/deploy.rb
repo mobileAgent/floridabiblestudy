@@ -21,6 +21,7 @@ set :repository_cache, "git_master"
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 set :scm_verbose, true
+set :use_sudo, false
 
 set :server_name, "floridabiblestudy.org"
 
