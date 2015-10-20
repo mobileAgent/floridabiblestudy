@@ -45,6 +45,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     daemons (1.1.9)
+    dynamic_form (1.1.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
     exception_notification_rails3 (1.2.0)
@@ -137,6 +138,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   capistrano
   coffee-rails (~> 3.2.1)
+  dynamic_form
   exception_notification_rails3
   factory_girl_rails
   jquery-rails

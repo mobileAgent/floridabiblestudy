@@ -22,6 +22,6 @@ Floridabiblestudy::Application.configure do
   config.middleware.use ExceptionNotifier,
      :email_prefix => "[FMBS] ",
      :sender_address => %{"FMBS Exception Notifier" <support@floridabiblestudy.org>},
-     :exception_recipients => %w{flester@gmail.com}
+     :exception_recipients => %w{mike@flester.com}
 
 end
