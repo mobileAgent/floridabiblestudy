@@ -64,12 +64,14 @@ set :keep_releases, 3
 # must match the options given for the servers to select (like :primary => true)
 
 
-namespace :deploy do
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
-end
+#namespace :deploy do
+#  desc "Restarting mod_rails with restart.txt"
+#  task :restart, :roles => :app, :except => { :no_release => true } do
+#    run "touch #{current_path}/tmp/restart.txt"
+#  end
+#end
+
+after 'deploy:symlink', 'after_update_code'
 
 desc "Tasks before initial setup"
 task :before_setup do
