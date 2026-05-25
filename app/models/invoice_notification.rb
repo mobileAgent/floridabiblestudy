@@ -1,6 +1,7 @@
 class InvoiceNotification < ActionMailer::Base
 
   def invoice(user,registration,main_event)
+    logger.info "INSIDE THE INVOICE METHOD WITH #{user.email}"
     @recipients = user.email
     @from = 'info@floridabiblestudy.org'
     @bcc = 'info@floridabiblestudy.org'
@@ -35,9 +36,10 @@ class InvoiceNotification < ActionMailer::Base
        p2 += "You can make your check payable to *Boulevard Bible Chapel*\n"
        p2 += "And mail it to \n\n"
        p2 += "                 Florida Mens Bible Study c/o Mike Renth\n"
-       p2 += "                 2481 SW 99th Way\n"
-       p2 += "                 Miramar FL 33025 USA\n"
+       p2 += "                 10801 NW. 18th St. \n"
+       p2 += "                 Pembroke Pines, FL 33026 USA\n"
      end
+     
        
      p3 = "Thank you for registering for the #{main_event.year} Study,\n"
      p3 += "we are looking forward to seeing you there.!\n"

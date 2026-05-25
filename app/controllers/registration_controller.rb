@@ -61,7 +61,9 @@ class RegistrationController < ApplicationController
              redirect_to :action => 'waiting_list_thanks'
           else
              flash[:notice] = 'Registration created'
+             logger.info "USER REGISTRATION CREATED FOR #{@user.email} NOW READY TO DELIVER"
              InvoiceNotification.invoice(@user, @registration, @main_event).deliver
+             logger.info "USER REGISTRATION DELIVER COMPLETED NOW REDIRECTING TO INVOICE PAGE"
              redirect_to :action => 'invoice'
           end
        else

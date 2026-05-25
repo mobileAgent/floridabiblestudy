@@ -6,17 +6,21 @@
 <ul>
   <li> Teachers:
     <ul>
-      <li>Randy Amos</li>
-      <li>Keith Keyser</li>
-      <li>Larry Price</li>
-      <li>Henry Sardiña</li>
+      <li>Keith Keyser (Pennsylvania) </li>
+      <li>Sam Mikhael (Bahamas) </li>
+      <li>Henry Sardiña (Florida) </li>
+      <li>Craig Shakarji (Maryland) </li>
     </ul>
   <% if @main_event %>
     <li class="location">Where: <%= @main_event.location %></li>
     <li> Registration Cost: $<%= @main_event.registration_cost %></li>
     <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text%></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @main_event.year %></li>
-    <li>Topic: <b>Isaiah (First Half)</b></li>
+    <li>Topic: <b>Gospel of John</b></li>
+    <li>New Format: Friday morning through Monday Noon!!</li>
+    <li> - Arrive Thursday night, no activities planned</li>
+    <li> - Attend church in surrounding areas on Sunday morning, study begins at 3pm that day</li>
     <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
+    <li> <a href="https://floridabiblestudy.org/audio/2026%20-%20John%20-%20Schedule.pdf">Detailed Schedule of Events</a></li>
   <% else %>
     <li>Details are still being worked out! Check back soon.</li>
   <% end %>
