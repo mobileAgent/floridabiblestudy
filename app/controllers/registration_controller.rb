@@ -9,13 +9,17 @@ class RegistrationController < ApplicationController
    end
 
    def register
+     if !@main_event
+       render :action => 'noregister'
+       return
+     end
      @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @main_event.id ]).size
      if @main_event.max_seats > @num_registered
-        @title = 'Registration'
-        render
+       @title = 'Registration'
+       render
      else
-        @title = "Registration Is Full #{@main_event.max_seats} vs #{@num_registered}"
-        render :action => 'registration_full'
+       @title = "Registration Is Full #{@main_event.max_seats} vs #{@num_registered}"
+       render :action => 'registration_full'
      end
    end
 

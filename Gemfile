@@ -1,15 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.22.5'
 
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-gem 'mysql2'
-# gem 'sqlite3'
+gem 'mysql2', '= 0.5.5'
 
 gem 'dynamic_form'
-
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -19,28 +15,26 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'exception_notification_rails3', :require => 'exception_notifier'
+gem 'ffi', '~> 1.15.5'
+gem 'bigdecimal', '~> 1.4.4'
+gem 'jquery-ui-rails', '~> 4.2'  # 5.x+ requires Rails 4+
 
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the web server
-# gem 'unicorn'
+gem 'bcrypt-ruby', '~> 3.1.5', require: 'bcrypt'
 
 # Deploy with Capistrano
 gem 'capistrano'
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
 group :development, :test do
-  # Pretty printed test output
-  #gem 'turn', :require => false
-  #gem 'webrat'
-  #gem 'autotest'
   gem 'thin'
-  gem 'simplecov', :require => false
 end
 
-gem 'factory_girl_rails', :group => :test
+group :test do
+  gem 'rspec-rails',       '~> 3.9.0'
+  gem 'capybara',          '~> 2.18.0'
+  gem 'database_cleaner',  '~> 1.8.5'
+  gem 'factory_girl_rails'
+  gem 'launchy'
+  gem 'test-unit',         '~> 3.0'  # required by rspec-rails on Ruby 2.2+
+  gem 'simplecov', :require => false
+end

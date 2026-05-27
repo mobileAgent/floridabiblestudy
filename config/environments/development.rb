@@ -15,6 +15,15 @@ Floridabiblestudy::Application.configure do
   # Enable the breakpoint server that script/breakpointer connects to
   #config.breakpoint_server = true
   
+  # Send Rails logs to STDOUT so `docker compose logs` sees them, and
+  # disable Ruby's stdout buffering so they appear immediately rather
+  # than only after a buffer fills or the process exits.
+  # $stdout.sync = true
+  # logger           = ActiveSupport::Logger.new($stdout)
+  # logger.formatter = config.log_formatter
+  # config.logger    = ActiveSupport::TaggedLogging.new(logger)
+
+
   # Show full error reports and disable caching
   # config.action_controller.consider_all_requests_local = true
   config.action_controller.perform_caching             = false

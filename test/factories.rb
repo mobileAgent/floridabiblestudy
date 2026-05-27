@@ -46,9 +46,9 @@ FactoryGirl.define do
     first_name "Bob"
     last_name "Adob"
     middle_name "Q"
-    age_range FactoryGirl.create(:age_range)
-    event FactoryGirl.create(:event)
-    user FactoryGirl.create(:user)
+    association :user
+    association :age_range
+    association :event
     zip_code "12345"
     mobile "3213214321"
     country "US"
