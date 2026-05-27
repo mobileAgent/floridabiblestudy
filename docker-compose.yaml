@@ -1,0 +1,21 @@
+# docker-compose.yml
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: fmbs_dev
+    ports: ["3308:3306"]
+    volumes: ["./tmp/mysql:/var/lib/mysql"]
+  web:
+    build: { context: ., dockerfile: Dockerfile.dev }
+    ports: ["3002:3000"]
+    depends_on: [db]
+    volumes:
+      - "./:/app"
+      - "bundle:/usr/local/bundle"
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+    environment:
+      # RUBYOPT: "-W:no-deprecated"
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
+volumes: { bundle: {} }
