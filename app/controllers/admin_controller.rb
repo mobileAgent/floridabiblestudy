@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 
-   before_filter :authorize_admin
+   before_action :authorize_admin
 
    def index
      @title = 'Adminstration'
@@ -10,7 +10,8 @@ class AdminController < ApplicationController
    # GET /admin/list_registration.csv
    def list_registration
       @title = 'Admin - List Registered'
-      @registrations = Registration.find(:all, :conditions => ["event_id = ?",@main_event.id], :order => "last_name")
+      @registrations = Registration.where("event_id = ?", @main_event.id)
+                         .order("last_name").all
     respond_to do |format|
        format.html # list_registration.html.erb
        format.xml  { render :xml => @registrations, :layout => false }
@@ -103,7 +104,7 @@ class AdminController < ApplicationController
    end
 
    def edit_faqs
-      @faqs = Faq.find(:all, :order => 'list_order')
+      @faqs = Faq.order('list_order').all
    end
 
    def preview_faqs

@@ -1,8 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.22.5'
+gem 'rails', '4.2.11.3'
 
-gem 'mysql2', '= 0.5.5'
+# Asset pipeline gems bump in lockstep with Rails 4.2
+gem 'sass-rails',   '~> 5.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'jquery-rails'  # 4.x line works with Rails 4.2
+
+# mysql2 — Rails 4.2's adapter accepts ~> 0.3.13 OR 0.4.x.
+# Drop the version pin entirely and let bundler pick.
+gem 'mysql2'
 
 gem 'dynamic_form'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -10,13 +17,13 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Extracted from core by Rails 4.2
+gem 'actionpack-page_caching'
+
 gem 'ffi', '~> 1.15.5'
-gem 'bigdecimal', '~> 1.4.4'
 gem 'jquery-ui-rails', '~> 4.2'  # 5.x+ requires Rails 4+
 
 # To use ActiveModel has_secure_password
