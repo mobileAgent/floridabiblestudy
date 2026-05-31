@@ -1,11 +1,11 @@
 class EventsController < ApplicationController
 
-  before_filter :authorize_admin
+  before_action :authorize_admin
 
   # GET /events
   # GET /events.xml
   def index
-    @events = Event.find(:all)
+    @events = Event.all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -18,7 +18,7 @@ class Registration < ActiveRecord::Base
   
   def self.setup_new_registration(user,event,attributes=nil)
      registration = 
-         (user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  user.id, event.id ])) ||
+         (user && Registration.where("user_id = ? and event_id = ?",  user.id, event.id).first) ||
       Registration.new(attributes)
      if user && registration.new_record? && (registration.last_name.nil? || registration.last_name == '')
         last_years_reg = Registration.find_by_user_id(user.id, :order => 'updated_at desc')

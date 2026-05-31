@@ -1,7 +1,7 @@
 class RegistrationController < ApplicationController
 
-  before_filter :authorize, :except => [:register, :index, :create, :noregister, :register_wait_list, :registration_full]
-  before_filter :setup, :only => [:index, :register, :invoice, :create, :delete, :register_wait_list ]
+  before_action :authorize, :except => [:register, :index, :create, :noregister, :register_wait_list, :registration_full]
+  before_action :setup, :only => [:index, :register, :invoice, :create, :delete, :register_wait_list ]
 
    def index
       @title = 'Registration'
@@ -13,7 +13,7 @@ class RegistrationController < ApplicationController
        render :action => 'noregister'
        return
      end
-     @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @main_event.id ]).size
+     @num_registered = Registration.where("event_id = ?", @main_event.id ).count
      if @main_event.max_seats > @num_registered
        @title = 'Registration'
        render
@@ -82,7 +82,7 @@ class RegistrationController < ApplicationController
 
    def update
      @user = User.find_by_id(session[:user_id])
-     @registration = Registration.find(:first, :conditions => ["user_id = ? and event_id = ?", @user.id, @main_event.id])
+     @registration = Registration.where("user_id = ? and event_id = ?", @user.id, @main_event.id).first
      if @registration.update_attributes(params[:registration])
         flash[:notice] = 'Registration Updated'
      else
