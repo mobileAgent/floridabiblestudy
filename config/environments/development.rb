@@ -1,4 +1,4 @@
-Floridabiblestudy::Application.configure do
+Rails.application.configure do
 
   # Settings specified here will take precedence over those in config/environment.rb
   
@@ -7,9 +7,6 @@ Floridabiblestudy::Application.configure do
   # since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
   
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
-  # config.logger = Logger.new(config.log_path, 2, 20.megabytes)
   config.active_support.deprecation = :log
 
   # Enable the breakpoint server that script/breakpointer connects to

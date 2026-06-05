@@ -1,4 +1,5 @@
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
+
   has_many :registrations
   
   # microformat support

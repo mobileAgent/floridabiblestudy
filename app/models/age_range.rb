@@ -1,4 +1,4 @@
-class AgeRange < ActiveRecord::Base
+class AgeRange < ApplicationRecord
 
   has_many :registrations
 
