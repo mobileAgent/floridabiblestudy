@@ -1,3 +1,5 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -12,6 +14,14 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on
   # config.action_controller.consider_all_requests_local = false
   config.action_controller.perform_caching             = true
+
+
+  config.log_level = :info
+  # Log disallowed deprecations.
+  config.active_support.disallowed_deprecation = :log
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host                  = "http://assets.example.com"
