@@ -29,7 +29,10 @@ gem 'jquery-ui-rails'
 gem 'bcrypt', '~> 3.1.7'   # was bcrypt-ruby
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano',         '~> 3.17'
+gem 'capistrano-rails',   '~> 1.6'
+gem 'capistrano-bundler', '~> 2.1'
+gem 'capistrano-rbenv',   '~> 2.2'
 
 group :development, :test do
   gem 'thin'

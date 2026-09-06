@@ -1,127 +1,56 @@
-# This defines a deployment "recipe" that you can feed to capistrano
-# (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
-# (among other things) the deployment of your application.
-
-require 'yaml'
-require 'bundler/capistrano'
-
-# =============================================================================
-# REQUIRED VARIABLES
-# =============================================================================
-# You must always specify the application and repository for every recipe. The
-# repository must be the URL of the repository you want this recipe to
-# correspond to. The deploy_to path must be the path on each machine that will
-# form the root of the application path.
+# config valid for current version and patch releases of Capistrano
+lock "~> 3.17"
 
 set :application, "floridabiblestudy"
-set :scm, 'git'
-set :repository,  "git@github.com:mobileAgent/floridabiblestudy.git"
-set :branch, "master"
-set :repository_cache, "git_master"
-set :deploy_via, :remote_cache
-set :git_shallow_clone, 1
-set :scm_verbose, true
-set :use_sudo, false
+set :repo_url,    "git@github.com:mobileAgent/floridabiblestudy.git"
 
-set :server_name, "floridabiblestudy.org"
+# Default branch; override with `BRANCH=foo cap production deploy` if needed
+set :branch, ENV.fetch("BRANCH", "master")
 
-# =============================================================================
-# ROLES
-# =============================================================================
-# You can define any number of roles, each of which contains any number of
-# machines. Roles might include such things as :web, or :app, or :db, defining
-# what the purpose of each machine is. You can also specify options that can
-# be used to single out a specific subset of boxes in a particular role, like
-# :primary => true.
+# Deploy target on the server
+set :deploy_to, "/var/apps/#{fetch(:application)}"
 
-role :web, "#{server_name}"
-role :app, "#{server_name}"
-role :db,  "#{server_name}", :primary => true
-
-# =============================================================================
-# OPTIONAL VARIABLES
-# =============================================================================
-set :deploy_to, "/var/apps/#{application}"
-set :user, "floridambs"         # defaults to the currently logged in user
-set :group, "apache"
-
-set :db_username, "fmbs"
-
-# How much to keep on a cleanup task
+# How many old releases to retain
 set :keep_releases, 3
 
-# SSH OPTIONS
-# =============================================================================
-# ssh_options[:keys] = %w(/path/to/my/key /path/to/another/key)
-# ssh_options[:port] = 25
+# rbenv configuration — matches the server-side install at /opt/rbenv
+set :rbenv_type,     :system
+set :rbenv_path,     "/opt/rbenv"
+set :rbenv_ruby,     "2.7.8"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
-# =============================================================================
-# TASKS
-# =============================================================================
-# Define tasks that run on all (or only some) of the machines. You can specify
-# a role (or set of roles) that each task should be executed on. You can also
-# narrow the set of servers to a subset of a role by specifying options, which
-# must match the options given for the servers to select (like :primary => true)
+# Bundler parallelism
+set :bundle_jobs, 4
 
+# Directories symlinked from /var/apps/floridabiblestudy/shared/ into each release.
+append :linked_dirs,
+  "log",
+  "tmp/pids",
+  "tmp/cache",
+  "tmp/sockets",
+  "public/audio"
 
-#namespace :deploy do
-#  desc "Restarting mod_rails with restart.txt"
-#  task :restart, :roles => :app, :except => { :no_release => true } do
-#    run "touch #{current_path}/tmp/restart.txt"
-#  end
-#end
+# Files symlinked from shared/ into each release.
+# These are NEVER committed to the repo:
+#   - config/database.yml : production DB credentials
+#   - config/master.key   : decrypts credentials.yml.enc
+append :linked_files, "config/database.yml", "config/master.key"
 
-after 'deploy:symlink', 'after_update_code'
+# Default value for keeping the SSH connection open during long tasks
+set :ssh_options, {
+  forward_agent: true,
+  keepalive: true,
+  keepalive_interval: 30
+}
 
-desc "Tasks before initial setup"
-task :before_setup do
-  sudo "mkdir -p /var/apps/#{application}"
-  sudo "chown -R #{user}:#{group} /var/apps/#{application}"
-  sudo "mkdir -p /var/log/#{application}"
-end
-
-desc "After updating the code populate a new database.yml"
-task :after_update_code, :roles => :app do
-  buffer = YAML::load_file('config/database.yml');
-  # purge unneeded configurations
-  buffer.delete('test');
-  buffer.delete('development');
-
-  put YAML::dump(buffer),"#{release_path}/config/database.yml",:mode=>0644
-
-  # Clean up tmp and relink to shared for session and cache data
-  run "rm -rf #{release_path}/tmp" # because it should not be in svn
-  run "ln -nfs #{deploy_to}/shared/tmp #{release_path}/tmp"
-  run "ln -nfs #{deploy_to}/shared/audio #{current_release}/public/audio"
-end
-
-desc "Tasks to execute after initial setup"
-task :after_setup do
-  # Make shared config dir to hold config files
-  run "mkdir -p #{deploy_to}/shared/config"
-  # Make shared tmp for sessions
-  run "mkdir -p #{deploy_to}/shared/tmp"
-  run "mkdir -p #{deploy_to}/shared/tmp/sessions"
-  run "mkdir -p #{deploy_to}/shared/tmp/cache"
-  run "mkdir -p #{deploy_to}/shared/tmp/sockets"
-end
-
-desc "Backup the remote production database"
-task :backup, :roles => :db, :only => { :primary => true } do
-  filename = "#{application}.dump.#{Time.now.to_i}.sql.bz2"
-  file = "/tmp/#{filename}"
-  on_rollback { run "rm /tmp/#{filename}" }
-  db = YAML::load_file("config/database.yml")
-  run "mysqldump -u #{db['production']['username']} --password=#{db['production']['password']} #{db['production']['database']} | bzip2 -c > #{file}"  do |ch, stream, data|
-    puts data
+namespace :deploy do
+  desc "Restart Passenger by touching tmp/restart.txt"
+  task :restart do
+    on roles(:app) do
+      execute "touch #{release_path}/tmp/restart.txt"
+    end
   end
-  `mkdir -p #{File.dirname(__FILE__)}/../backups/`
-  get file, "backups/#{filename}"
-  #delete file
-  run "rm /tmp/#{filename}"
-end
 
-desc "Backup the database before running migrations"
-task :before_migrate do 
-  backup
+  # Restart Passenger after every successful publish
+  after :publishing, :restart
 end
