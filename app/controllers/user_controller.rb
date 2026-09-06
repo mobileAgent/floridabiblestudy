@@ -19,7 +19,7 @@ class UserController < ApplicationController
 
    def update_password
       user = User.find_by_id(session[:user_id])
-      if user && user.update_attributes(params[:user])
+      if user && user.update(params[:user])
          flash[:notice] = 'Password updated'
          redirect_to :controller => "welcome" , :action => "index"
       else

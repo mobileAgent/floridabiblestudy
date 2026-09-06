@@ -1,26 +1,34 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
 
   # Settings specified here will take precedence over those in config/environment.rb
   
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
-  # since you don't have to restart the webserver when you make code changes.
+  # Send Rails logs to STDOUT so `docker compose logs` sees them, and
+  # disable Ruby's stdout buffering so they appear immediately rather
+  # than only after a buffer fills or the process exits.
+  $stdout.sync = true
+  logger           = ActiveSupport::Logger.new($stdout)
+  logger.formatter = config.log_formatter
+  config.logger    = ActiveSupport::TaggedLogging.new(logger)
+
+  # In the development environment your application's code is reloaded any time
+  # it changes. This slows down response time but is perfect for development
   config.cache_classes = false
   
   config.active_support.deprecation = :log
 
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
   # Enable the breakpoint server that script/breakpointer connects to
   #config.breakpoint_server = true
   
-  # Send Rails logs to STDOUT so `docker compose logs` sees them, and
-  # disable Ruby's stdout buffering so they appear immediately rather
-  # than only after a buffer fills or the process exits.
-  # $stdout.sync = true
-  # logger           = ActiveSupport::Logger.new($stdout)
-  # logger.formatter = config.log_formatter
-  # config.logger    = ActiveSupport::TaggedLogging.new(logger)
-
-
   # Show full error reports and disable caching
   # config.action_controller.consider_all_requests_local = true
   config.action_controller.perform_caching             = false

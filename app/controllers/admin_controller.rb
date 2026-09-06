@@ -75,7 +75,7 @@ class AdminController < ApplicationController
 
    def update_registration
      @registration = Registration.find(params[:id])
-     if @registration && @registration.update_attributes(params[:registration])
+     if @registration && @registration.update(params[:registration])
        flash[:notice] = "#{@registration.first_name} #{@registration.last_name} registration updated"
        redirect_to :action => 'list_registration' and return
      else
