@@ -29,10 +29,6 @@ Rails.application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  config.middleware.use ExceptionNotifier,
-     :email_prefix => "[FMBS] ",
-     :sender_address => %{"FMBS Exception Notifier" <support@floridabiblestudy.org>},
-     :exception_recipients => %w{mike@flester.com}
 
   config.eager_load = false
 
