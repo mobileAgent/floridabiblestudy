@@ -42,10 +42,20 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  private
+
+  def event_params
+    params.require(:event).permit(:year, :location, :registration_cost, :registration_count,
+                                  :max_seats, :start_date, :end_date, :hotel,
+                                  :speaker_one, :speaker_two, :speaker_three, :topics)
+  end
+
+  public
+
   # POST /events
   # POST /events.xml
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new(event_params)
 
     respond_to do |format|
       if @event.save
@@ -65,7 +75,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     respond_to do |format|
-      if @event.update(params[:event])
+      if @event.update(event_params)
         flash[:notice] = 'Event was successfully updated.'
         format.html { redirect_to(@event) }
         format.xml  { head :ok }

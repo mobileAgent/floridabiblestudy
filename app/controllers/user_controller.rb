@@ -3,7 +3,7 @@ class UserController < ApplicationController
   before_action :authorize, :only => [:change_password, :update_password]
 
    def add_user
-      @user = User.new(params[:user])
+      @user = User.new(user_params)
       @user.last_visit = Time.now
       if request.post? and @user.save
          flash.now[:notice] = "Account created for #{@user.email}"
@@ -19,12 +19,18 @@ class UserController < ApplicationController
 
    def update_password
       user = User.find_by_id(session[:user_id])
-      if user && user.update(params[:user])
+      if user && user.update(user_params)
          flash[:notice] = 'Password updated'
          redirect_to :controller => "welcome" , :action => "index"
       else
          flash[:notice] = 'Update failed'
          redirect_to :action => 'Change Password'
       end
+   end
+
+   private
+
+   def user_params
+     params.require(:user).permit(:email, :password, :password_confirmation)
    end
 end

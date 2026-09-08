@@ -114,7 +114,7 @@ GEM
       factory_girl (~> 4.9.0)
       railties (>= 3.0.0)
     ffi (1.15.5)
-    globalid (1.4.0)
+    globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
@@ -146,7 +146,7 @@ GEM
     minitest (5.25.4)
     mysql2 (0.5.7)
       bigdecimal
-    net-imap (0.4.25)
+    net-imap (0.3.10)
       date
       net-protocol
     net-pop (0.1.2)

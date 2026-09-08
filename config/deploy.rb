@@ -34,7 +34,8 @@ append :linked_dirs,
 # These are NEVER committed to the repo:
 #   - config/database.yml : production DB credentials
 #   - config/master.key   : decrypts credentials.yml.enc
-append :linked_files, "config/database.yml", "config/master.key"
+append :linked_files, "config/database.yml", "config/master.key", "public/.htaccess"
+
 
 # Default value for keeping the SSH connection open during long tasks
 set :ssh_options, {

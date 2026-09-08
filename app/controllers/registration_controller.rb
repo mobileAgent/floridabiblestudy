@@ -42,10 +42,10 @@ class RegistrationController < ApplicationController
    end
 
    def create
-      @registration = Registration.new(params[:registration])
+      @registration = Registration.new(registration_params)
       @wait_list = (params[:wait_list] == 'true')
       if !@user || @user.new_record?
-         @user = User.new(params[:user])
+         @user = User.new(user_params)
          @user.last_visit = Time.now
          if ! @user.save
            flash[:notice] = 'There was an error creating your user account'
@@ -83,7 +83,7 @@ class RegistrationController < ApplicationController
    def update
      @user = User.find_by_id(session[:user_id])
      @registration = Registration.where("user_id = ? and event_id = ?", @user.id, @main_event.id).first
-     if @registration.update(params[:registration])
+     if @registration.update(registration_params)
         flash[:notice] = 'Registration Updated'
      else
        flash[:notice] = 'Update failed'
@@ -101,11 +101,22 @@ class RegistrationController < ApplicationController
 
    private
 
+   def user_params
+     params.require(:user).permit(:email, :password, :password_confirmation)
+   end
+
+   def registration_params
+     params.require(:registration).permit(:first_name, :last_name, :middle_name,
+                                          :address1, :address2, :city, :state, :zip_code,
+                                          :phone, :mobile, :country, :comments, :age_range_id,
+                                          :amount_paid, :amount_owed)
+   end
+
    def setup
      @user = User.find_by_id(session[:user_id])
      @registration ||=
-       Registration.setup_new_registration(@user,@main_event,
-                                           params[:registration])
+       Registration.setup_new_registration(@user, @main_event,
+                                           params[:registration] ? registration_params : nil)
    end
 
 end

@@ -52,16 +52,31 @@ class AdminController < ApplicationController
      @user = User.find(@registration.user_id)
    end
 
+   private
+
+   def user_params
+     params.require(:user).permit(:email, :password, :password_confirmation)
+   end
+
+   def registration_params
+     params.require(:registration).permit(:first_name, :last_name, :middle_name,
+                                          :address1, :address2, :city, :state, :zip_code,
+                                          :phone, :mobile, :country, :comments, :age_range_id,
+                                          :amount_paid, :amount_owed)
+   end
+
+   public
+
    def create_registration
      if params[:user_id].blank?
-       @user = User.new(params[:user])
+       @user = User.new(user_params)
        @user.password = User.generate_password
        @user.last_visit = Time.now
        @user.save!
      else
        @user = User.find(params[:user_id])
      end
-     @registration = Registration.new(params[:registration])
+     @registration = Registration.new(registration_params)
      @registration.user_id = @user.id
      @registration.event_id = @main_event.id
      if @registration.save
@@ -75,7 +90,7 @@ class AdminController < ApplicationController
 
    def update_registration
      @registration = Registration.find(params[:id])
-     if @registration && @registration.update(params[:registration])
+     if @registration && @registration.update(registration_params)
        flash[:notice] = "#{@registration.first_name} #{@registration.last_name} registration updated"
        redirect_to :action => 'list_registration' and return
      else
