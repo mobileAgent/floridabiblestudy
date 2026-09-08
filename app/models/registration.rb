@@ -21,7 +21,7 @@ class Registration < ApplicationRecord
          (user && Registration.where("user_id = ? and event_id = ?",  user.id, event.id).first) ||
       Registration.new(attributes)
      if user && registration.new_record? && (registration.last_name.nil? || registration.last_name == '')
-        last_years_reg = Registration.find_by_user_id(user.id, :order => 'updated_at desc')
+        last_years_reg = Registration.where(user_id: user.id).order(updated_at: :desc).first
        if last_years_reg
          registration = Registration.new(last_years_reg.attributes)
          # registration = last_years_reg.clone
