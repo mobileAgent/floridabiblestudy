@@ -29,7 +29,7 @@ class AdminController < ApplicationController
    end
 
    def list_users
-     @users = User.all(:order => :email)
+     @users = User.order(:email)
      @title = 'Admin - Users'
    end
 
